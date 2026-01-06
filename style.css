@@ -1,0 +1,12 @@
+h1 {
+    text-align: center;
+}
+
+#board {
+    height: 400px;
+    width: 400px;
+    margin: 0 auto;
+    border: solid;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
