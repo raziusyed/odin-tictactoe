@@ -162,5 +162,3 @@ const game = (() => {
     }
 
 })();
-
-game.playGame();
