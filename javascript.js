@@ -162,3 +162,13 @@ const game = (() => {
     }
 
 })();
+
+(() => {
+    const boardDiv = document.querySelector("#board");
+
+    gameboard.getBoard().forEach(row => row.forEach(cell => {
+        const cellDiv = document.createElement("button");
+        cellDiv.classList.add("cell");
+        boardDiv.appendChild(cellDiv);
+    }))
+})();

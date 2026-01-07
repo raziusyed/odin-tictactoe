@@ -6,7 +6,17 @@ h1 {
     height: 400px;
     width: 400px;
     margin: 0 auto;
-    border: solid;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: 5px;
+    background-color: black;
+}
+
+.cell {
+    background-color: white;
+    border: none;
+}
+
+.cell:hover {
+    cursor: pointer;
 }
