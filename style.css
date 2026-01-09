@@ -20,3 +20,7 @@ h1 {
 .cell:hover {
     cursor: pointer;
 }
+
+#playerTurn {
+    text-align: center;
+}
