@@ -39,6 +39,10 @@ const gameboard = (() => {
         return true;
     }
 
+    function isBoardFilled() {
+        return board.every(row => row.every(cell => cell !== null));
+    }
+
     function resetBoard() {
         for (const row of board) {
             row.fill(null);
@@ -127,6 +131,7 @@ const gameboard = (() => {
         placeMarker,
         resetBoard,
         isWinner,
+        isBoardFilled,
     }
 })();
 
@@ -134,17 +139,25 @@ const game = (() => {
 
     let currentPlayer = player1;
     let winner = null;
+    let draw = false;
 
-    function setWinner(player) {
-        winner = player;
+    function resetGame() {
+        gameboard.resetBoard();
+        winner = null;
+        currentPlayer = player1
+        draw = false;
+    }
+
+    function getCurrentGameData() {
+        return [currentPlayer, gameboard.getBoard()];
     }
 
     function getWinner() {
         return winner;
     }
 
-    function getCurrentPlayer() {
-        return currentPlayer;
+    function checkDraw() {
+        return draw;
     }
 
     function switchPlayer() {
@@ -152,13 +165,18 @@ const game = (() => {
     }
 
     function playTurn(row, col) {
+        // if player tries to play in a cell that is already taken
         if (!gameboard.placeMarker(currentPlayer, row, col)) {
             return;
         };
         let isWinner = gameboard.isWinner(currentPlayer, row, col);
         if (isWinner) {
-            console.log(`${currentPlayer.getName()} wins!`);
-            setWinner(currentPlayer);
+            winner = currentPlayer;
+            return;
+        }
+
+        if (gameboard.isBoardFilled()) {
+            draw = true;
             return;
         }
         switchPlayer();
@@ -166,8 +184,10 @@ const game = (() => {
 
     return {
         playTurn,
-        getCurrentPlayer,
         getWinner,
+        resetGame,
+        getCurrentGameData,
+        checkDraw,
     }
 
 })();
@@ -176,23 +196,35 @@ const game = (() => {
     const playerTurn = document.querySelector("#playerTurn");
     const cellButtons = document.querySelectorAll(".cell");
     const dialog = document.querySelector("dialog");
-    console.log(dialog);
+    const dialogRestartButton = document.querySelector("#dialogRestart");
+    const dialogResult = document.querySelector("#result");
+
     cellButtons.forEach(cell => cell.addEventListener("click", cellClickHandler));
+
+    dialogRestartButton.addEventListener("click", restartGame)
 
     function render() {
 
-        // check for winner
+        // check for winner or draw
         const winner = game.getWinner();
+        const draw = game.checkDraw();
         if (winner) {
-            console.log("winner found");
+            dialogResult.innerText = `${winner.getName()} wins!`;
+            dialog.showModal();
+            return;
+        }
+
+        if (draw) {
+            dialogResult.innerText = "It's a draw!";
+            dialog.showModal();
+            return;
         }
 
         // clear the board
         cellButtons.forEach(cell => cell.textContent = "");
 
         // get newest version of board and player turn
-        const board = gameboard.getBoard();
-        const currentPlayer = game.getCurrentPlayer();
+        const [currentPlayer, board] = game.getCurrentGameData();
 
         // Display player's turn
         playerTurn.textContent = `Make your move ${currentPlayer.getName()}!`;
@@ -208,6 +240,12 @@ const game = (() => {
         const cell = e.currentTarget;
         const { row, col } = cell.dataset;
         game.playTurn(row, col);
+        render();
+    }
+
+    function restartGame() {
+        game.resetGame();
+        dialog.close();
         render();
     }
 

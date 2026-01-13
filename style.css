@@ -24,3 +24,15 @@ h1 {
 #playerTurn {
     text-align: center;
 }
+
+dialog {
+    height: 300px;
+    width: 300px;
+}
+
+dialog[open] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
