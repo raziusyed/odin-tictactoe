@@ -25,58 +25,82 @@
     font-display: swap;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 *:not(dialog) {
-  margin: 0;
+    margin: 0;
 }
 
 body {
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  font-family: 'Amatic', system-ui;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Amatic', system-ui;
 }
 
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
 }
 
-input, button, textarea, select {
-  font: inherit;
+input,
+button,
+textarea,
+select {
+    font: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
 }
 
 p {
-  text-wrap: pretty;
+    text-wrap: pretty;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  text-wrap: balance;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-wrap: balance;
 }
 
 h1 {
     text-align: center;
+    font-family: '3Dumb', system-ui;
+    font-size: 72px;
 }
 
 #board {
     height: 400px;
     width: 400px;
-    margin: 0 auto;
+    margin: 36px auto;
     display: grid;
     grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-    gap: 5px;
+    gap: 10px;
     background-color: black;
 }
 
 .cell {
     background-color: white;
     border: none;
+    font-family: '3Dumb', system-ui;
+    font-size: 72px;
 }
 
 .cell:hover {
@@ -85,6 +109,7 @@ h1 {
 
 #playerTurn {
     text-align: center;
+    font-size: 48px;
 }
 
 dialog {
@@ -93,8 +118,8 @@ dialog {
     border-radius: 16px;
     border: none;
     box-shadow:
-    0 20px 40px rgba(0,0,0,0.15),
-    0 8px 16px rgba(0,0,0,0.1);
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .dialog-content {
@@ -105,7 +130,7 @@ dialog {
     gap: 36px;
 }
 
-.dialog-content > p {
+.dialog-content>p {
     font-size: 48px;
     text-align: center;
 }
@@ -119,12 +144,12 @@ form {
     /* width: 100%; */
 }
 
-form > p {
+form>p {
     font-size: 32px;
     display: flex;
 }
 
-form > p.error {
+form>p.error {
     visibility: hidden;
     font-size: 24px;
     margin-bottom: 24px;
@@ -135,14 +160,14 @@ form label {
     width: 75px;
 }
 
-form button {
+form button, #dialogRestart {
     background: none;
     border-radius: 12px;
     align-self: center;
     font-size: 32px;
 }
 
-form button:hover {
+form button:hover, #dialogRestart:hover {
     cursor: pointer;
 }
 
@@ -161,6 +186,6 @@ form input:invalid:not(:placeholder-shown):focus {
     outline: none;
 }
 
-p:has(input:invalid:not(:placeholder-shown)) + p.error {
+p:has(input:invalid:not(:placeholder-shown))+p.error {
     visibility: visible;
 }
