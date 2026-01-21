@@ -11,9 +11,6 @@ const createPlayer = function (name, marker) {
     }
 }
 
-// const player1 = createPlayer("Player 1", "X")
-// const player2 = createPlayer("Player 2", "O")
-
 // create gameboard
 
 const gameboard = (() => {
