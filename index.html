@@ -10,6 +10,26 @@
 
 <body>
     <h1>Tic Tac Toe</h1>
+    <dialog id="dialogStart">
+        <div class="dialog-content">
+            <p>Enter Player names and click Start Game to begin</p>
+            <form id="startGameForm">
+                <p>
+                    <label for="player1Name">Player 1: </label>
+                    <input type="text" name="player1Name" id="player1Name" placeholder="name" required
+                        pattern="[A-Za-z\s]+">
+                </p>
+                <p class="error">Please use only alphabetical characters</p>
+                <p>
+                    <label for="player2Name">Player 2: </label>
+                    <input type="text" name="player2Name" id="player2Name" placeholder="name" required
+                        pattern="[A-Za-z\s]+">
+                </p>
+                <p class="error">Please use only alphabetical characters</p>
+                <button type="submit">Start Game</button>
+            </form>
+        </div>
+    </dialog>
     <div id="board">
         <button class="cell" data-row="0" data-col="0"></button>
         <button class="cell" data-row="0" data-col="1"></button>
@@ -22,9 +42,11 @@
         <button class="cell" data-row="2" data-col="2"></button>
     </div>
     <h2 id="playerTurn"></h2>
-    <dialog>
-        <p id="result"></p>
-        <button id="dialogRestart">Play Again</button>
+    <dialog id="dialogEnd">
+        <div class="dialog-content">
+            <p id="result"></p>
+            <button id="dialogRestart">Play Again</button>
+        </div>
     </dialog>
     <script src="javascript.js"></script>
 </body>

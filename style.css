@@ -1,3 +1,65 @@
+@font-face {
+    font-family: 'Amatic SC';
+    src: url('fonts/AmaticSC-Regular.woff2') format('woff2'),
+        url('fonts/AmaticSC-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Amatic';
+    src: url('fonts/Amatic-Bold.woff2') format('woff2'),
+        url('fonts/Amatic-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: '3Dumb';
+    src: url('fonts/3dumb.woff2') format('woff2'),
+        url('fonts/3dumb.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+*:not(dialog) {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Amatic', system-ui;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
 h1 {
     text-align: center;
 }
@@ -26,13 +88,79 @@ h1 {
 }
 
 dialog {
-    height: 300px;
-    width: 300px;
+    width: 500px;
+    padding: 48px;
+    border-radius: 16px;
+    border: none;
+    box-shadow:
+    0 20px 40px rgba(0,0,0,0.15),
+    0 8px 16px rgba(0,0,0,0.1);
 }
 
-dialog[open] {
+.dialog-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    gap: 36px;
+}
+
+.dialog-content > p {
+    font-size: 48px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    align-items: flex-start;
+    /* height: 300px; */
+    /* width: 100%; */
+}
+
+form > p {
+    font-size: 32px;
+    display: flex;
+}
+
+form > p.error {
+    visibility: hidden;
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: red;
+}
+
+form label {
+    width: 75px;
+}
+
+form button {
+    background: none;
+    border-radius: 12px;
+    align-self: center;
+    font-size: 32px;
+}
+
+form button:hover {
+    cursor: pointer;
+}
+
+form input {
+    padding: 0px 12px;
+    border-radius: 12px;
+    border: 2px solid
+}
+
+form input:invalid:not(:placeholder-shown) {
+    border-color: red;
+}
+
+form input:invalid:not(:placeholder-shown):focus {
+    border-color: red;
+    outline: none;
+}
+
+p:has(input:invalid:not(:placeholder-shown)) + p.error {
+    visibility: visible;
 }

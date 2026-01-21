@@ -11,8 +11,8 @@ const createPlayer = function (name, marker) {
     }
 }
 
-const player1 = createPlayer("Player 1", "X")
-const player2 = createPlayer("Player 2", "O")
+// const player1 = createPlayer("Player 1", "X")
+// const player2 = createPlayer("Player 2", "O")
 
 // create gameboard
 
@@ -137,9 +137,20 @@ const gameboard = (() => {
 
 const game = (() => {
 
-    let currentPlayer = player1;
+    let player1 = null;
+    let player2 = null;
+    let currentPlayer = null;
     let winner = null;
     let draw = false;
+
+    function setPlayer1(player) {
+        player1 = player;
+        currentPlayer = player1;
+    }
+
+    function setPlayer2(player) {
+        player2 = player;
+    }
 
     function resetGame() {
         gameboard.resetBoard();
@@ -188,6 +199,8 @@ const game = (() => {
         resetGame,
         getCurrentGameData,
         checkDraw,
+        setPlayer1,
+        setPlayer2,
     }
 
 })();
@@ -195,13 +208,31 @@ const game = (() => {
 (() => {
     const playerTurn = document.querySelector("#playerTurn");
     const cellButtons = document.querySelectorAll(".cell");
-    const dialog = document.querySelector("dialog");
-    const dialogRestartButton = document.querySelector("#dialogRestart");
-    const dialogResult = document.querySelector("#result");
+    const endDialog = document.querySelector("#dialogEnd");
+    const endDialogRestartButton = document.querySelector("#dialogRestart");
+    const endDialogResult = document.querySelector("#result");
+    const startDialog = document.querySelector("#dialogStart");
+    const startForm = document.querySelector("#startGameForm");
+
+    startForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(startForm);
+        const player1Name = formData.get('player1Name');
+        const player2Name = formData.get('player2Name');
+
+        player1 = createPlayer(player1Name, "X");
+        player2 = createPlayer(player2Name, "O");
+
+        game.setPlayer1(player1);
+        game.setPlayer2(player2);
+
+        startDialog.close();
+        render();
+    })
 
     cellButtons.forEach(cell => cell.addEventListener("click", cellClickHandler));
 
-    dialogRestartButton.addEventListener("click", restartGame)
+    endDialogRestartButton.addEventListener("click", restartGame)
 
     function render() {
 
@@ -209,14 +240,14 @@ const game = (() => {
         const winner = game.getWinner();
         const draw = game.checkDraw();
         if (winner) {
-            dialogResult.innerText = `${winner.getName()} wins!`;
-            dialog.showModal();
+            endDialogResult.innerText = `${winner.getName()} wins!`;
+            endDialog.showModal();
             return;
         }
 
         if (draw) {
-            dialogResult.innerText = "It's a draw!";
-            dialog.showModal();
+            endDialogResult.innerText = "It's a draw!";
+            endDialog.showModal();
             return;
         }
 
@@ -245,10 +276,10 @@ const game = (() => {
 
     function restartGame() {
         game.resetGame();
-        dialog.close();
+        endDialog.close();
         render();
     }
 
-    render();
+    startDialog.showModal();
 
 })();
