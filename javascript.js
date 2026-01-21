@@ -235,6 +235,19 @@ const game = (() => {
     endDialogRestartButton.addEventListener("click", restartGame)
 
     function render() {
+        // clear the board
+        cellButtons.forEach(cell => cell.textContent = "");
+
+        // get newest version of board and player turn
+        const [currentPlayer, board] = game.getCurrentGameData();
+
+        // Display player's turn
+        playerTurn.textContent = `Make your move ${currentPlayer.getName()}!`;
+
+        // update board
+        board.forEach((row, r) => row.forEach((cell, c) => {
+            cellButtons[r * 3 + c].textContent = cell;
+        }))
 
         // check for winner or draw
         const winner = game.getWinner();
@@ -251,19 +264,6 @@ const game = (() => {
             return;
         }
 
-        // clear the board
-        cellButtons.forEach(cell => cell.textContent = "");
-
-        // get newest version of board and player turn
-        const [currentPlayer, board] = game.getCurrentGameData();
-
-        // Display player's turn
-        playerTurn.textContent = `Make your move ${currentPlayer.getName()}!`;
-
-        // update board
-        board.forEach((row, r) => row.forEach((cell, c) => {
-            cellButtons[r * 3 + c].textContent = cell;
-        }))
 
     }
 
