@@ -101,6 +101,7 @@ h1 {
     border: none;
     font-family: '3Dumb', system-ui;
     font-size: 72px;
+    font-weight: bold;
 }
 
 .cell:hover {
